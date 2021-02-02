@@ -36,7 +36,7 @@ namespace OnboardingWorkerService
         public async Task Handle(SendWelcomeEmail m)
         {
             Log.Information($"Sending welcome email for account {m.AccountId}.");
-            await Task.Delay(10000); // This delay will breach our OLA rules!
+            await Task.Delay(1000); // This delay will breach our OLA rules!
             await _bus.Reply(new WelcomeEmailSent { AccountId = m.AccountId });
         }
     }
