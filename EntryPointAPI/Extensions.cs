@@ -16,7 +16,7 @@ namespace EntryPointAPI
                 rebus => rebus
                    .Logging(l => l.Console())
                    .Routing(r => r.TypeBased().Map<OnboardNewCustomer>("MainQueue"))
-                   .Transport(t => t.UseFileSystemAsOneWayClient("c:/rebus-advent"))
+                   .Transport(t => t.UseFileSystemAsOneWayClient("rebus-advent"))
                    .Options(t => t.SimpleRetryStrategy(errorQueueAddress: "ErrorQueue")));
         }
     }
