@@ -26,7 +26,7 @@ namespace OnboardingWorkerService
         public Task StartAsync(CancellationToken cancellationToken)
         {
             var services = new ServiceCollection();
-            services.AddRebusAsSendAndReceive(_configuration);
+            services.AddRebusAsSendAndReceiveUsingSqlServer(_configuration);
 
             _provider = services.BuildServiceProvider();
             _provider.UseRebus(x => _bus = x);

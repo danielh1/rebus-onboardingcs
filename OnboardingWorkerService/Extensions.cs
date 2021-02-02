@@ -13,6 +13,8 @@ namespace OnboardingWorkerService
 {
     public static class Extensions
     {
+        public static string BackplaneConnectionString =
+            "Server=localhost; Database=ServiceBus; User=sa; Password=secret!;";
         public static void AddRebusAsSendAndReceive(this IServiceCollection services, IConfiguration config)
         {
             services.AddRebus(
@@ -26,6 +28,27 @@ namespace OnboardingWorkerService
                    .Timeouts(x  => x.UseFileSystem("c:/rebus-advent/timeouts"))
             );
 
+            services.AutoRegisterHandlersFromAssemblyOf<RebusHostedService>();
+        }
+
+        public static void AddRebusAsSendAndReceiveUsingSqlServer(this IServiceCollection services,
+            IConfiguration config)
+        {
+            services.AddRebus(
+                rebus => rebus
+                    .Logging(x => x.Serilog())
+                    .Transport(x => x.UseSqlServer(BackplaneConnectionString, "Messages"))
+                    .Routing(r => r.TypeBased()
+                        .MapAssemblyOf<OnboardNewCustomer>("Messages"))
+                    .Sagas(x =>
+                    {
+                        x.StoreInSqlServer(
+                            connectionString: BackplaneConnectionString,
+                            dataTableName: "sagas",
+                            indexTableName: "SagasIndex");
+                    })
+            );
+            
             services.AutoRegisterHandlersFromAssemblyOf<RebusHostedService>();
         }
     }

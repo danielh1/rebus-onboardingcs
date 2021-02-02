@@ -65,7 +65,7 @@ namespace OnboardingWorkerService
             Data.CustomerEmail = m.Email;
 
             await _bus.Send(new CreateCustomerAccount {Name = m.Name, Email = m.Email});
-            await _bus.Defer(TimeSpan.FromSeconds(5), new OnboardingOlaBreached {SagaId = Data.Id});
+            await _bus.Defer(TimeSpan.FromSeconds(10), new OnboardingOlaBreached {SagaId = Data.Id});
 
             TryComplete();
         }
