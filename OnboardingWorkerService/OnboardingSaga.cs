@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using OnboardingMessages;
 using Rebus.Bus;
 using Rebus.Handlers;
+using Rebus.Pipeline;
 using Rebus.Sagas;
 using Serilog;
 
@@ -20,6 +21,8 @@ namespace OnboardingWorkerService
         public bool AccountCreated     { get; set; }
         public bool WelcomeEmailSent   { get; set; }
         public bool SalesCallScheduled { get; set; }
+        
+        
 
         public bool IsComplete => AccountCreated && WelcomeEmailSent && SalesCallScheduled;
     }
@@ -63,6 +66,7 @@ namespace OnboardingWorkerService
 
             Data.CustomerName  = m.Name;
             Data.CustomerEmail = m.Email;
+            
 
             await _bus.Send(new CreateCustomerAccount {Name = m.Name, Email = m.Email});
             await _bus.Defer(TimeSpan.FromSeconds(10), new OnboardingOlaBreached {SagaId = Data.Id});

@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnboardingMessages;
+using Rebus;
 using Rebus.Bus;
+
 
 namespace EntryPointAPI.Controllers
 {
@@ -19,7 +21,9 @@ namespace EntryPointAPI.Controllers
         [Route("newcustomer")]
         public async Task<IActionResult> NewCustomer(string name, string email)
         {
+            
             await _bus.Send(new OnboardNewCustomer { Name = name, Email = email });
+            //var reply = await _bus.SendRequest<SalesCallScheduled>(new OnboardNewCustomer { Name = name, Email = email });
             return Ok();
         }
     }

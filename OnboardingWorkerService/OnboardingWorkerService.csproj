@@ -15,6 +15,7 @@
     <PackageReference Include="Rebus.Serilog" Version="6.0.0" />
     <PackageReference Include="Rebus.ServiceProvider" Version="5.0.6" />
     <PackageReference Include="Rebus.SqlServer" Version="7.1.5" />
+    <PackageReference Include="Rebus.Async" Version="7.1.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
   </ItemGroup>
 

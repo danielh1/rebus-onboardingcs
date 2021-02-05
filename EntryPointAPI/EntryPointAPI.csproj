@@ -9,6 +9,7 @@
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
         <PackageReference Include="Rebus" Version="6.4.1" />
+        <PackageReference Include="Rebus.Async" Version="7.1.0" />
         <PackageReference Include="Rebus.AzureServiceBus" Version="7.1.6" />
         <PackageReference Include="Rebus.ServiceProvider" Version="5.0.6" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
@@ -17,6 +18,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\OnboardingMessages\OnboardingMessages.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Consumer" />
     </ItemGroup>
 
 </Project>
