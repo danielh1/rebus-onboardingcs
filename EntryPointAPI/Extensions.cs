@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using EntryPointAPI.Hubs;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnboardingMessages;
 using Rebus.Retry.Simple;
@@ -32,7 +33,8 @@ namespace EntryPointAPI
                     .Routing(r =>
                     {
                         r.TypeBased()
-                            .Map<OnboardNewCustomer>("Messages");
+                            .Map<OnboardNewCustomer>("Messages")
+                            .Map<WelcomeEmailSent>("Messages");
                     })
                     .Transport(x => x.UseSqlServerAsOneWayClient(BackplaneConnectionString))
                     .Options(t => t.SimpleRetryStrategy(errorQueueAddress: "ErrorQueue")));

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using OnboardingMessages;
@@ -6,20 +7,24 @@ using Serilog;
 
 namespace EntryPointAPI.Hubs
 {
-    public class ActivityHub : Hub //<IActivityHub>
-    ,IHandleMessages<WelcomeEmailSent>
+    public class ActivityHub : Hub<IActivityHub>
+   // ,IHandleMessages<WelcomeEmailSent>
     {
-        public ActivityHub()
+        private readonly IHubContext<ActivityHub> _activityHub;
+        public ActivityHub(IHubContext<ActivityHub> activityHub)
         {
-          //  _eventHubServer = eventHubServer ?? throw new ArgumentNullException(nameof(eventHubServer));
+          _activityHub = activityHub ?? throw new ArgumentNullException(nameof(activityHub));
         }
         
-       // private readonly IHubContext<ActivityHub> _eventHubServer;
+         
         public async Task SendMessage(string message)
         {
            // await _eventHubServer.Clients.All.SendAsync("data-feed", message);
-           await Clients.All.SendAsync("data-feed", message);
+           await _activityHub.Clients.All.SendAsync("data-feed", message);
+           //await Clients.User(userConnectionId).SendAsync("account_registration_result", message);
         }
+        
+     
         
         public override Task OnConnectedAsync()
         {
@@ -27,11 +32,11 @@ namespace EntryPointAPI.Hubs
             return base.OnConnectedAsync();
         }
         
-        async Task IHandleMessages<WelcomeEmailSent>.Handle(WelcomeEmailSent domainEvent)
-        {
-            Log.Information("Handling WelcomeEmailSent sent event");
-            await SendMessage("Welcome Mail sent");
-        }
+        // async Task IHandleMessages<WelcomeEmailSent>.Handle(WelcomeEmailSent domainEvent)
+        // {
+        //     Log.Information("Handling WelcomeEmailSent sent event");
+        //     await SendMessage("Welcome Mail sent");
+        // }
         
     }
 }

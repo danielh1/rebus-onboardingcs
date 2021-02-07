@@ -91,6 +91,7 @@ namespace OnboardingWorkerService
         {
             Log.Information($"Welcome email sent for {m.AccountId}.");
             Data.WelcomeEmailSent = true;
+            _bus.Publish(new WelcomeEmailSent {AccountId = m.AccountId});
             TryComplete();
             return Task.CompletedTask;
         }
