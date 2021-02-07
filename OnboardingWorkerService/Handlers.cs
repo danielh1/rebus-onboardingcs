@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using OnboardingMessages;
+//using OnboardingWorkerService.Hubs;
 using Rebus.Bus;
 using Rebus.Handlers;
 using Serilog;
@@ -44,6 +46,7 @@ namespace OnboardingWorkerService
     public class ScheduleSalesCallHandler : IHandleMessages<ScheduleSalesCall>
     {
         private readonly IBus _bus;
+       // private readonly IHubContext<ActivityHub> _activityHub;
 
         public ScheduleSalesCallHandler(IBus bus)
         {
@@ -54,6 +57,7 @@ namespace OnboardingWorkerService
         {
             Log.Information($"Scheduling sales call for account {m.AccountId}.");
             await Task.Delay(500); // Pretend we're doing something!
+            
             await _bus.Reply(new SalesCallScheduled { AccountId = m.AccountId });
         }
     }

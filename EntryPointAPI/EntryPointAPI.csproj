@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
         <PackageReference Include="Rebus" Version="6.4.1" />
@@ -14,6 +15,8 @@
         <PackageReference Include="Rebus.ServiceProvider" Version="5.0.6" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
         <PackageReference Include="Rebus.SqlServer" Version="7.1.5" />
+        <PackageReference Include="Rebus.Serilog" Version="6.0.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     </ItemGroup>
 
     <ItemGroup>
