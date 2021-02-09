@@ -34,9 +34,12 @@ namespace EntryPointAPI
                     {
                         r.TypeBased()
                             .Map<OnboardNewCustomer>("Messages")
-                            .Map<WelcomeEmailSent>("Messages");
+                         //   .Map<WelcomeEmailSent>("Messages")
+                            .Map<NotifyServiceDesk>("Messages")
+                         ;
                     })
-                    .Transport(x => x.UseSqlServerAsOneWayClient(BackplaneConnectionString))
+                    .Subscriptions(s => s.StoreInSqlServer(BackplaneConnectionString, "Subscriptions", isCentralized: true))
+                    .Transport(x => x.UseSqlServer(BackplaneConnectionString, "Messages"))
                     .Options(t => t.SimpleRetryStrategy(errorQueueAddress: "ErrorQueue")));
         }
     }

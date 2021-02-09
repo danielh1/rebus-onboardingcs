@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OnboardingMessages;
+using Rebus.ServiceProvider;
 
 namespace EntryPointAPI
 {
@@ -43,6 +45,11 @@ namespace EntryPointAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.ApplicationServices.UseRebus(async bus =>
+            {
+                await bus.Subscribe<NotifyServiceDesk>();
+            });
 
             app.UseEndpoints(endpoints =>
             {

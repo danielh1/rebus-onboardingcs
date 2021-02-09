@@ -109,7 +109,7 @@ namespace OnboardingWorkerService
             Log.Information($"ONBOARDING OLA BREACH PENDING FOR for saga {m.SagaId}.");
 
             await _bus.Send(new CancelSalesCall {AccountId = Data.AccountId});
-            await _bus.Send(new NotifyServiceDesk {Message = $"Customer onboarding OLA breach pending for new customer {Data.CustomerName} with email {Data.CustomerEmail}."});
+            await _bus.Publish(new NotifyServiceDesk {Message = $"Customer onboarding OLA breach pending for new customer {Data.CustomerName} with email {Data.CustomerEmail}."});
 
             Log.Information($"Abandoning saga {Data.Id}.");
             MarkAsComplete();

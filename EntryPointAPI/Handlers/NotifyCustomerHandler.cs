@@ -22,7 +22,7 @@ namespace EntryPointAPI.Handlers
             string greeting = $"Dear customer please be aware that that: {m.Message}.";
             Log.Information($"{greeting}.");
             //send the notification to All (Todo: should be to a particular User(connectionID) )
-            await _activityHubContext.Clients.All.SendMessage(greeting);
+            //await _activityHubContext.Clients.All.SendMessage(greeting);
             //return Task.CompletedTask;
         }
     }

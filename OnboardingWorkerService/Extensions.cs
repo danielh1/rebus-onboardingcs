@@ -47,6 +47,7 @@ namespace OnboardingWorkerService
                             dataTableName: "sagas",
                             indexTableName: "SagasIndex");
                     })
+               
             );
             
             services.AutoRegisterHandlersFromAssemblyOf<RebusHostedService>();
